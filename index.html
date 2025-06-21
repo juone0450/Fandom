@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Realidad del Trabajo</title>
+    <title>Pagina Fandom de DoñaHuana</title>
     <!-- Tailwind CSS para un diseño rápido y responsivo -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts para una tipografía estética -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Fuente para el cuerpo del texto -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <!-- Fuente moderna para el título -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800&display=swap" rel="stylesheet">
     <style>
         /* Estilos personalizados para el fondo animado y la estética general */
         body {
@@ -32,9 +35,10 @@
         /* Estilo para el contenedor del video para simular un teléfono */
         .video-container {
             max-width: 320px; /* Ancho típico de un teléfono en vertical */
-            max-height: 570px; /* Alto para mantener la proporción 9:16 */
+            height: 570px; /* Alto para mantener la proporción 9:16 */
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), 0 1px 8px rgba(0, 0, 0, 0.08);
             overflow: hidden; /* Oculta cualquier parte del video que se salga del contenedor */
+            position: relative; /* Necesario para posicionar los controles */
         }
         
         .video-player {
@@ -42,44 +46,244 @@
             height: 100%;
             object-fit: cover; /* Asegura que el video cubra todo el contenedor */
         }
+
+        /* Contenedor para los controles personalizados */
+        .controls-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .video-container:hover .controls-container {
+            opacity: 1;
+        }
+
+        /* Estilo para los botones de control */
+        .control-button {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            transition: background 0.2s ease;
+        }
+        .control-button:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+        .control-button svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+
+        /* Estilos para el título con degradado y fuente moderna */
+        .title-gradient {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(90deg, #ff8a00, #e52e71, #6a11cb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
     </style>
 </head>
 <body class="animated-gradient">
     <!-- Contenedor principal para centrar el contenido -->
     <div class="min-h-screen w-full flex flex-col items-center justify-center p-4">
 
+        <!-- Título de la página con nuevos estilos -->
+        <h1 class="text-5xl font-extrabold text-center mb-8 title-gradient" style="text-shadow: 0px 2px 10px rgba(255,255,255,0.3);">Pagina Fandom de DoñaHuana</h1>
+
         <main class="w-full max-w-sm flex flex-col items-center text-center space-y-6">
             
-            <!-- Contenedor del video con estilo de teléfono -->
+            <!-- Contenedor del video con estilo de teléfono y controles -->
             <div class="video-container bg-black rounded-3xl p-2">
                 <video 
+                    id="tiktok-video"
                     class="video-player rounded-2xl"
-                    src="https://videos.pexels.com/video-files/3993324/3993324-sd_540_960_30fps.mp4" 
-                    autoplay 
-                    loop 
-                    muted 
+                    src="https://raw.githubusercontent.com/juone0450/Fandom/main/pruebafandom.mp4"
+                    loop
                     playsinline>
                     Tu navegador no soporta el tag de video.
                 </video>
+
+                <div class="controls-container">
+                    <button id="play-pause-btn" class="control-button">
+                        <!-- Icono de Play -->
+                        <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+                        <!-- Icono de Pause (oculto por defecto) -->
+                        <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="hidden"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path></svg>
+                    </button>
+                    <button id="mute-btn" class="control-button">
+                        <!-- Icono de Sonido -->
+                        <svg id="volume-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg>
+                        <!-- Icono de Silencio (oculto por defecto) -->
+                        <svg id="mute-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="hidden"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"></path></svg>
+                    </button>
+                </div>
             </div>
 
             <!-- Sección de Hashtags -->
             <div class="text-white text-opacity-80 text-sm font-light">
-                <p>#VidaDeOficina #FelicidadFingida #RealidadLaboral #SaludMental</p>
+                <p>#VidaDeOficina #Felicidad #RealidadLaboral #Humor</p>
             </div>
 
-            <!-- Enlace al TikTok -->
+            <!-- Enlace al Instagram -->
             <div>
-                <a href="https://vm.tiktok.com/ZMSmseYss/" 
+                <a href="https://www.instagram.com/nahuelsug/reels/" 
                    target="_blank" 
                    rel="noopener noreferrer"
                    class="inline-block bg-white bg-opacity-30 text-white font-semibold py-3 px-8 rounded-full shadow-lg backdrop-blur-sm transition-transform transform hover:scale-105 hover:bg-opacity-40 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50">
-                    Descubre más en TikTok
+                    Descubre más en Instagram
                 </a>
+            </div>
+
+            <!-- Banner Publicitario (ahora un div para activar el modal) -->
+            <div id="ad-banner" class="cursor-pointer mt-8 w-full rounded-2xl shadow-lg overflow-hidden relative group">
+                <!-- Imagen de fondo -->
+                <img src="https://raw.githubusercontent.com/juone0450/Fandom/main/imagen.png" alt="Publicidad de Led Cultivo Indoor" class="w-full h-full object-cover absolute transition-transform duration-500 group-hover:scale-110">
+                <!-- Capa de gradiente para legibilidad -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-black/20"></div>
+                <!-- Contenido del banner -->
+                <div class="relative p-5 flex flex-col justify-end h-48 text-white text-left">
+                    <h3 class="text-md font-bold leading-tight">Led Cultivo Indoor Growtech Dimmerizable Quantum Board 300w</h3>
+                    <p class="text-2xl font-extrabold mt-2">$665.000</p>
+                </div>
             </div>
 
         </main>
         
     </div>
+
+    <!-- Modal de redirección -->
+    <div id="redirect-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex items-center justify-center p-4 z-50 transition-opacity duration-300">
+        <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full text-center transform transition-all duration-300 scale-95">
+            <h3 class="text-xl font-bold text-gray-800 mb-4">Estás saliendo del sitio</h3>
+            <p class="text-gray-600 mb-6 text-sm">
+                Se te redirigirá a un sitio de Mercado Libre para ver un "LED de cultivo indoor Growtech Quantum Board 300w es ideal para espacios de 100x100 a 120x120, rinde como un LED Full Spectrum 600w produciendo la mitad del calor y con la mitad del consumo."
+            </p>
+            <div class="flex justify-center space-x-4">
+                <button id="cancel-btn" class="py-2 px-8 bg-gray-200 text-gray-700 font-semibold rounded-full hover:bg-gray-300 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-400">Cancelar</button>
+                <button id="continue-btn" class="py-2 px-8 bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-semibold rounded-full hover:from-purple-600 hover:to-indigo-700 transition-all shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-400">Continuar</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // --- Lógica para los controles del video ---
+        const video = document.getElementById('tiktok-video');
+        const playPauseBtn = document.getElementById('play-pause-btn');
+        const muteBtn = document.getElementById('mute-btn');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        const volumeIcon = document.getElementById('volume-icon');
+        const muteIcon = document.getElementById('mute-icon');
+
+        function togglePlayPause() {
+            if (video.paused || video.ended) {
+                video.play();
+            } else {
+                video.pause();
+            }
+        }
+
+        function updatePlayPauseIcon() {
+            if (video.paused || video.ended) {
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
+            } else {
+                playIcon.classList.add('hidden');
+                pauseIcon.classList.remove('hidden');
+            }
+        }
+        
+        function toggleMute() {
+            video.muted = !video.muted;
+        }
+
+        function updateMuteIcon() {
+            if (video.muted) {
+                volumeIcon.classList.add('hidden');
+                muteIcon.classList.remove('hidden');
+            } else {
+                volumeIcon.classList.remove('hidden');
+                muteIcon.classList.add('hidden');
+            }
+        }
+
+        playPauseBtn.addEventListener('click', togglePlayPause);
+        muteBtn.addEventListener('click', toggleMute);
+        video.addEventListener('click', togglePlayPause);
+        video.addEventListener('play', updatePlayPauseIcon);
+        video.addEventListener('pause', updatePlayPauseIcon);
+        video.addEventListener('ended', updatePlayPauseIcon);
+        video.addEventListener('volumechange', updateMuteIcon);
+
+        updatePlayPauseIcon();
+        updateMuteIcon();
+
+
+        // --- Lógica para el modal de redirección ---
+        const adBanner = document.getElementById('ad-banner');
+        const redirectModal = document.getElementById('redirect-modal');
+        const modalContent = redirectModal.querySelector('div');
+        const cancelBtn = document.getElementById('cancel-btn');
+        const continueBtn = document.getElementById('continue-btn');
+        const productUrl = "https://www.mercadolibre.com.ar/led-cultivo-indoor-growtech-dimmerizable-quantum-board-300w/p/MLA35819013";
+
+        // Función para mostrar el modal
+        function showModal() {
+            redirectModal.classList.remove('hidden');
+            // Pequeños efectos para la aparición
+            setTimeout(() => {
+                redirectModal.classList.add('opacity-100');
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+            }, 10); 
+        }
+
+        // Función para ocultar el modal
+        function hideModal() {
+            redirectModal.classList.remove('opacity-100');
+            modalContent.classList.add('scale-95');
+            setTimeout(() => {
+                redirectModal.classList.add('hidden');
+            }, 300); // Coincide con la duración de la transición
+        }
+
+        // Abrir el modal al hacer clic en el banner
+        adBanner.addEventListener('click', showModal);
+        
+        // Cerrar el modal al hacer clic en "Cancelar"
+        cancelBtn.addEventListener('click', hideModal);
+
+        // Ir al sitio al hacer clic en "Continuar"
+        continueBtn.addEventListener('click', () => {
+            window.open(productUrl, '_blank');
+            hideModal();
+        });
+
+        // Cerrar el modal si se hace clic fuera del contenido
+        redirectModal.addEventListener('click', (event) => {
+            if (event.target === redirectModal) {
+                hideModal();
+            }
+        });
+
+    </script>
 </body>
 </html>
